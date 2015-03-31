@@ -1,0 +1,69 @@
+#!/bin/bash
+#
+# The MIT License (MIT)
+#
+# Copyright (c) 2015 Alexandre Magno ‒ alexandre.mbm@gmail.com
+#
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+# LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+# OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+# WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+#
+# Exemplo:
+#
+#   $ DIRNAME=adobe-digital-editions/ ; source aliases
+#   adobe-digital-editions-4.0.3.110333-1-any.pkg.tar.xz
+#
+# TODO: validações!
+#
+# TODO: ampliar para a seguinte possibilidade
+#
+#   $ cd adobe-digital-editions/
+#   $ source ../aliases
+#
+# TODO: talvez funcione com PATH, como segue 
+#       (e então devo criar pacote, com help e man)
+#
+#   $ cd adobe-digital-editions/
+#   $ source pkgaliases
+
+_version=
+_build=
+source $DIRNAME/PKGBUILD
+
+ARCH=${arch[0]}  # TODO: usá-lo melhor; receber valor como parâmetro?
+
+PKG_SUFFIX=${pkgver}-${pkgrel}-$ARCH.pkg.tar.xz
+PKG=${pkgname}-$PKG_SUFFIX
+
+OLDDIR=$(pwd); cd $DIRNAME; DIRNAME=$(pwd); cd $OLDDIR
+
+alias pkgmake="ODIR=\"\$(pwd)\"; cd \"$DIRNAME\"; makepkg -f; cd \"\$ODIR\""
+alias pkginstall="sudo pacman -U \"$DIRNAME\"/$PKG"
+alias pkgremove="sudo pacman -R ${pkgname}"
+
+PACKAGE_NAME="\e[01;34m${pkgname}\e[0m"               # adobe-digital-editions
+VERSION=${pkgver}; [ ${_version} ] && VERSION=${_version}
+VERSION="\e[00;31m$VERSION\e[0m"                      # 4.0.3
+BUILD=; [ ${_build} ] && BUILD=.${_build}             #         1.any.pkg.tar.xz
+END="\e[00;37m$BUILD-${pkgrel}-$ARCH.pkg.tar.xz\e[0m" # .110333-1.any.pkg.tar.xz
+alias pkgnow="echo -e \"$PACKAGE_NAME-$VERSION$END\"; echo"
+
+alias pkgtest="pkgmake; pkginstall"
+
+# TODO: -h e --help
