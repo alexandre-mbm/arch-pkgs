@@ -67,3 +67,19 @@ alias pkgnow="echo -e \"$PACKAGE_NAME-$VERSION$END\"; echo"
 alias pkgtest="pkgmake; pkginstall"
 
 # TODO: -h e --help
+
+pkgmkdep () {
+    G=Grupos
+    N=Nome
+    R=$(pacman -Si $(pactree -rl $1) 2>/dev/null |
+        grep -C 10 "^$G *:.*base-devel" |
+        grep -e "^$N" |
+        echo $(cut -d: -f2) |
+        sed "s/ /\n/g")
+
+    if [ -z "$R" ]; then
+        echo "Include '$1' in the makedepends array"
+    else
+        echo "No include '$1' in the makedepends array"
+    fi
+}
