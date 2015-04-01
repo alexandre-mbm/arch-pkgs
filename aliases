@@ -66,6 +66,7 @@ END="\e[00;37m$BUILD-${pkgrel}-$ARCH.pkg.tar.xz\e[0m" # .110333-1.any.pkg.tar.xz
 alias pkgnow="echo -e \"$PACKAGE_NAME-$VERSION$END\"; echo"
 
 alias pkgtest="pkgmake; pkginstall"
+alias pkgaur="yaourt -Sy && yaourt -S ${pkgname}"
 
 # TODO: -h e --help
 
