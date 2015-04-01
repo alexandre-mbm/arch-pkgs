@@ -8,7 +8,6 @@ url="https://github.com/${srcauthor}/${pkgname}"
 arch=(any)
 license=('MIT')
 depends=('bash' 'systemd' 'sound-theme-freedesktop' 'libcanberra')
-makedepends=(coreutils make)
 install=${pkgname}.install
 source=("https://github.com/${srcauthor}/${pkgname}/archive/${pkgver}.tar.gz")
 md5sums=('1d0c956e2417920fd38822aefc37f650')
