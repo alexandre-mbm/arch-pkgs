@@ -4,3 +4,6 @@
 [submodule "dangerous-jack-connector"]
 	path = dangerous-jack-connector
 	url = ssh+git://aur@aur4.archlinux.org/dangerous-jack-connector.git
+[submodule "tfe"]
+	path = tfe
+	url = ssh+git://aur@aur4.archlinux.org/tfe.git
