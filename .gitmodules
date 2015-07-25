@@ -1,3 +1,6 @@
 [submodule "adobe-digital-editions"]
 	path = adobe-digital-editions
 	url = ssh+git://aur@aur4.archlinux.org/adobe-digital-editions.git
+[submodule "dangerous-jack-connector"]
+	path = dangerous-jack-connector
+	url = ssh+git://aur@aur4.archlinux.org/dangerous-jack-connector.git
