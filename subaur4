@@ -1,0 +1,110 @@
+#!/bin/bash
+#
+# To run: ./subaur4 SUBMODULE_DIR
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+#
+# The MIT License (MIT)
+#
+# Copyright (c) 2015 Alexandre Magno ‒ alexandre.mbm@gmail.com
+#
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+# LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+# OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+# WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+#
+# Based in knowledge of import-to-aur4.sh [1] and aur4_make_submodule.sh [2]
+#
+# 1: http://github.com/ido/packages-archlinux/blob/master/bin/import-to-aur4.sh
+# 2: http://github.com/JonnyJD/PKGBUILDs/blob/master/_bin/aur4_make_submodule.sh
+
+which mksrcinfo &>/dev/null \
+	|| { echo "Please install the pkgbuild-introspection"; exit -1; }
+
+if [ $# -lt 1 -o \( "$1" = "-h" -o "$1" = "--help" \) ]; then
+	echo "usage: $0 <path/to/package>"
+	echo "(should be done in root of the original repository)"
+	exit -1
+fi
+
+path=${1%/}             # the trailing '/' is removed
+
+pkg=$(basename $path)
+
+function execforme() {
+    echo "$1"
+    for i in `seq 1 ${#1}`; do printf -; done
+    if [ $2 ]; then
+        echo
+        shift
+        echo "$ $*"
+        $*
+    fi
+    echo
+}
+
+echo
+
+execforme "remove the path from version control" \
+    git rm -r --cached "$path"
+
+execforme "making backup" \
+    mv "$path" "${pkg}_aur4_bak"
+
+execforme "add the AUR 4 package as a submodule at the previous path" \
+    git submodule add -f ssh+git://aur@aur4.archlinux.org/${pkg}.git $path
+
+execforme "restore uncommited/unversioned files from backup" \
+    cp -r "${pkg}_aur4_bak/"* "$path"
+
+execforme "remove backup directory" \
+    rm -rf "${pkg}_aur4_bak"
+
+execforme "enter submodule direcotory" \
+    pushd ${path}
+
+execforme "generating .SRCINFO" \
+    mksrcinfo
+
+execforme "adding files to git" \
+    git add .
+
+execforme "commit on child repository"
+    git commit -m "Begins as submodule at GitHub alexandre-mbm/arch-pkgs"; echo
+
+execforme "exit submodule direcotory" \
+    popd
+
+execforme "retry the submodule" \
+    git submodule add -f ssh+git://aur@aur4.archlinux.org/${pkg}.git $path
+
+execforme "commit on root repository"
+    git commit -m "${pkg}: converted to AUR 4 submodule"; echo
+
+# Some help to undo failures (the tip is see the "git status" for each step):
+#
+#   $ git reset --soft HEAD~1
+#   $ git reset
+#   $ rm -rf .gitmodules adobe-digital-editions/
+#
+# NO! Take care regarding to erase .gitmodules
+#
+#   $ git reset
+#   $ git checkout master -- adobe-digital-editions
+
