@@ -4,7 +4,9 @@ Repositório baseado no exemplo de [/wrigleyster/arch-pkgs](https://github.com/w
 
 Para contribuir com este repositório, faça _fork_ e [_pull requests_](../../pulls).
 
-Para contribuir em algum dos pacotes, clone o repositório do AUR 4 (submodule deste repositório), trabalhe em novo _branch_, e ao final prepare um [_**patch**_](https://ariejan.net/2009/10/26/how-to-create-and-apply-a-patch-with-git/), anexando o arquivo em [_issue_](../../issues).
+Para contribuir em algum dos pacotes, clone o repositório do AUR 4 (submodule deste repositório), trabalhe em novo _branch_, e ao final prepare um [**patch**](https://ariejan.net/2009/10/26/how-to-create-and-apply-a-patch-with-git/), anexando o arquivo em [_issue_](../../issues).
+
+Instruções para instalação de pacotes podem ser encontradas no [wiki](../../wiki).
 
 # aliases
 
