@@ -2,9 +2,13 @@ Repositório baseado no exemplo de [/wrigleyster/arch-pkgs](https://github.com/w
 
 [![Na medida do permitido por lei, Alexandre Magno renunciou a todos os direitos de autor e direitos conexos (ou próximos) sobre o conjunto de projetos de empacotamento "/alexandre-mbm/arch-pkgs". Este trabalho é publicado a partir de: Brasil.](http://i.creativecommons.org/p/mark/1.0/88x31.png)](http://creativecommons.org/publicdomain/zero/1.0/deed.pt_BR)
 
+Para contribuir com este repositório, faça _fork_ e [_pull requests_](../../pulls).
+
+Para contribuir em algum dos pacotes, clone o repositório do AUR 4 (submodule deste repositório), trabalhe em novo _branch_, e ao final prepare um [_**patch**_](https://ariejan.net/2009/10/26/how-to-create-and-apply-a-patch-with-git/), anexando o arquivo em [_issue_](../../issues).
+
 # aliases
 
-É uma ferramenta que facilita geração e teste de pacotes definidos neste repositório. Um script sob [Licença MIT](http://pt.wikipedia.org/wiki/Licen%C3%A7a_MIT).
+É uma ferramenta que facilita geração e teste de pacotes definidos neste repositório. [Licença MIT](http://pt.wikipedia.org/wiki/Licen%C3%A7a_MIT).
 
 Ative a ferramenta para o pacote de trabalho atual:
 ```console
