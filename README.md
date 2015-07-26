@@ -4,7 +4,7 @@ Repositório baseado no exemplo de [/wrigleyster/arch-pkgs](https://github.com/w
 
 # aliases
 
-É uma ferramenta que facilita geração e teste de pacotes definidos neste repositório. Um script sob [Licença MIT](http://pt.wikipedia.org/wiki/Licen%C3%A7a_MIT). Se você for usá-lo, não precisa ler as demais seções deste documento, só esta.
+É uma ferramenta que facilita geração e teste de pacotes definidos neste repositório. Um script sob [Licença MIT](http://pt.wikipedia.org/wiki/Licen%C3%A7a_MIT).
 
 Ative a ferramenta para o pacote de trabalho atual:
 ```console
@@ -30,4 +30,14 @@ Já esta outra popular consulta é provida por pacote de mesmo nome, "pkgfile":
 $ pkgfile NOMEDEARQUIVO		# lista pacotes contendo o arquivo
 ```
 Isso é tudo que vocẽ precisa saber para gerenciar as definições de empacotamento versionadas nos subdiretórios deste respositório.
+
+# subaur4
+
+É uma ferramenta que converte um diretório de pacote em _submodule_ Git com repositório em formato adequado para emprego no AUR 4. Um script sob [Licença MIT](http://pt.wikipedia.org/wiki/Licen%C3%A7a_MIT).
+
+Com um `git status` limpo, e sabendo que o diretório ainda não é _submodule_, faça:
+
+```console
+$ bash subaur4 NOMEDEPACOTE/    # isso faz commit dentro e fora do submodule, exibindo relatório
+```
 
