@@ -7,3 +7,6 @@
 [submodule "tfe"]
 	path = tfe
 	url = ssh+git://aur@aur4.archlinux.org/tfe.git
+[submodule "inkblot"]
+	path = inkblot
+	url = ssh+git://aur@aur4.archlinux.org/inkblot.git
