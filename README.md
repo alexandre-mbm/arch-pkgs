@@ -31,6 +31,11 @@ Inclusive uma consulta auxiliar:
 ```console
 $ pkgmkdep NOMEDEPACOTE		# informa se é necessário declarar esse pacote em makedepends de PKGBUILD de pacote atual
 ```
+A propósito, quando se tem um Makefile, como é o caso em nosso pacote inkblot, o desenvolvedor empacotador, após compilar com sucesso, deverá procurar os _makedepends_ para incluir no PKGBUILD, assim:
+```console
+$ cd nomedopacote/
+$ pkgfindflags				# lista candidatos a makedepends
+```
 Já esta outra popular consulta é provida por pacote de mesmo nome, "pkgfile":
 ```console
 $ pkgfile NOMEDEARQUIVO		# lista pacotes contendo o arquivo

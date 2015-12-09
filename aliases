@@ -85,3 +85,25 @@ pkgmkdep () {
         echo "No include '$1' in the makedepends array"
     fi
 }
+
+function pkgfindflags() {  # it searches candidates for makedepends in a Makefile
+    (
+        grep ^PACKAGE_CFLAGS src/**/Makefile |
+        sed 's/-I/\n/g' | grep -v ^PACK | xargs find | grep ".h$"
+    ) |
+    (
+        while read LINE; do
+            pkgfile "$LINE"
+        done
+    ) |
+        sort -u > /tmp/${pkgname}-packs.txt
+
+    (
+        cat /tmp/${pkgname}-packs.txt | cut -d"/" -f2-
+    ) |
+        while read LINE; do
+            pkgmkdep "$LINE" |
+            grep ^Include |
+            sed -e "s/^[^']*'//g" -e "s/'[^']*$//g"
+        done
+}
