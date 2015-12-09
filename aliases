@@ -107,3 +107,22 @@ function pkgfindflags() {  # it searches candidates for makedepends in a Makefil
             sed -e "s/^[^']*'//g" -e "s/'[^']*$//g"
         done
 }
+
+function pkgreduce() {
+
+    (
+        echo "digraph tree {"
+        echo "node [style=filled, color=green];"
+
+        (
+            while read LINE; do
+                pactree -g "$LINE" | grep "\->" | grep -v START
+            done < "$1"
+
+        ) | sort -u
+
+        echo "}"
+
+    ) | gvpr 'N [indegree == 0] { print($.name); }'
+
+}  # http://stackoverflow.com/a/24748763 + http://www.graphviz.org/pdf/gvpr.1.pdf
