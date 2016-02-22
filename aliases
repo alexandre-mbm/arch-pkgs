@@ -54,7 +54,7 @@ PKG=${pkgname}-$PKG_SUFFIX
 OLDDIR=$(pwd); cd $DIRNAME; DIRNAME=$(pwd); cd $OLDDIR
 
 alias pkgsource="ODIR=\"\$(pwd)\"; cd \"$DIRNAME\"; makepkg -f --source; cd \"\$ODIR\""
-alias pkgmake="ODIR=\"\$(pwd)\"; cd \"$DIRNAME\"; makepkg -f; cd \"\$ODIR\""
+alias pkgmake="ODIR=\"\$(pwd)\"; cd \"$DIRNAME\"; makepkg -f; mv \"${PKG:0:-3}\" \"$PKG\"; cd \"\$ODIR\""
 alias pkginstall="sudo pacman -U \"$DIRNAME\"/$PKG"
 alias pkgremove="sudo pacman -R ${pkgname}"
 
