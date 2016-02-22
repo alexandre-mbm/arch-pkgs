@@ -10,3 +10,6 @@
 [submodule "inkblot"]
 	path = inkblot
 	url = ssh+git://aur@aur4.archlinux.org/inkblot.git
+[submodule "toggl-cli"]
+	path = toggl-cli
+	url = ssh+git://aur@aur4.archlinux.org/toggl-cli.git
