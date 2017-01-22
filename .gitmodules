@@ -13,3 +13,6 @@
 [submodule "toggl-cli"]
 	path = toggl-cli
 	url = ssh+git://aur@aur4.archlinux.org/toggl-cli.git
+[submodule "comporg"]
+	path = comporg
+	url = ssh+git://aur@aur4.archlinux.org/comporg.git
